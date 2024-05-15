@@ -5,7 +5,6 @@ type PostcodeData = {
   postcode: string;
   state: string;
   locality: string;
-  [key: string]: any;
 };
 
 let cachedPostcodes: PostcodeData[] | null = null;
@@ -13,7 +12,7 @@ let cachedPostcodes: PostcodeData[] | null = null;
 async function loadPostcodes(): Promise<PostcodeData[]> {
   if (cachedPostcodes) return cachedPostcodes;
 
-  const filePath = path.resolve(process.cwd() + '/public/postcodes.json');
+  const filePath = path.resolve(process.cwd(), 'public', 'postcodes.json');
   const fileData = await fs.readFile(filePath, 'utf-8');
   cachedPostcodes = JSON.parse(fileData);
   
@@ -24,26 +23,33 @@ export default defineEventHandler(async (event) => {
   const query = getQuery(event);
   const postcodes = query.postcodes as string;
 
-  const postcodeList:string[] = postcodes.split(',').map(pc => pc.trim());
+  if (!postcodes) {
+    return { error: 'No postcodes provided' };
+  }
+
+  const postcodeList: string[] = postcodes.split(',').map(pc => pc.trim());
+
+  if (postcodeList.length === 0) {
+    return { error: 'No postcodes provided' };
+  }
 
   try {
     const allPostcodes = await loadPostcodes();
 
     const filteredPostcodes = allPostcodes
-            .filter(item => postcodeList.includes(item.postcode))
-            .map(item => ({
-              postcode: item.postcode,
-              state: item.state,
-              locality: item.locality,
-            }));
-    
+      .filter(item => postcodeList.includes(item.postcode))
+      .map(item => ({
+        postcode: item.postcode,
+        state: item.state,
+        locality: item.locality,
+      }));
+
     const unknownPostcodes = postcodeList.filter(pc => !filteredPostcodes.find(item => item.postcode === pc));
 
     return {
       filteredPostcodes,
-      unknownPostcodes 
-    }
-
+      unknownPostcodes,
+    };
   } catch (error) {
     return { error: 'Failed to load postcodes data' };
   }
