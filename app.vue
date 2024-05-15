@@ -29,7 +29,7 @@
                 <div class="mt-3">{{ item.state }}</div>
               </UCard>
             </div>
-            <template #footer v-if="postcodeData.unknownPostcodes.length">
+            <template #footer v-if="postcodeData?.unknownPostcodes?.length">
               Unknown Postcodes: {{ postcodeData.unknownPostcodes.join(', ') }}
             </template>
           </UCard>
