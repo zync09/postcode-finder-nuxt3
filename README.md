@@ -7,7 +7,7 @@
 This is a postcode lookup app designed to allow users to type in a postcode for an Australian suburb and get the corresponding Suburb name and state.
 
 ### Main Feature
-The main feature of the app is to find a Suburb name based on a comma-separated list of postcodes entered into a search bar.
+The main feature was to build an API endpoint to filter the postcodes from and return their results. Added a simple UI around that as well.
 
 ## 2. Setup Instructions
 
