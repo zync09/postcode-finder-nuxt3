@@ -77,10 +77,3 @@ This endpoint processes the list of postcodes entered by the user, searches for 
 
 - **Error on Fetching Postcodes:** If the application fails to fetch postcodes, ensure the `postcodes.json` file is in the correct location (`public` directory) and contains valid JSON data.
 - **Form Validation:** Ensure the input field is correctly formatted with comma-separated postcodes.
-
-## 9. Contribution Guidelines
-To contribute to this project, fork the repository, create a new branch for your feature or bugfix, and submit a pull request with a detailed description of your changes.
-
-## 10. Additional Notes
-- The app uses the VueForm library for form handling.
-- Make sure to adhere to coding standards and best practices when contributing.
