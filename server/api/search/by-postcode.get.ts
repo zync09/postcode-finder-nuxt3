@@ -13,8 +13,7 @@ let cachedPostcodes: PostcodeData[] | null = null;
 async function loadPostcodes(): Promise<PostcodeData[]> {
   if (cachedPostcodes) return cachedPostcodes;
 
-  const filePath = path.resolve('public', 'postcodes.json');
-  const fileData = await fs.readFile(filePath, 'utf-8');
+  const fileData = await fs.readFile(process.cwd() + '/public/postcodes.json', 'utf-8');
   cachedPostcodes = JSON.parse(fileData);
   
   return cachedPostcodes || [];
