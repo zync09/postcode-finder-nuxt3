@@ -1,6 +1,7 @@
 # Postcode Lookup App Documentation
 
 ## 1. Project Overview
+![Preview Image](https://i.imgur.com/UVdOacl.png)
 
 ### Description
 This is a postcode lookup app designed to allow users to type in a postcode for an Australian suburb and get the corresponding Suburb name and state.
