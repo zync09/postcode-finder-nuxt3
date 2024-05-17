@@ -1,23 +1,7 @@
 import { promises as fs } from 'fs';
 import path from 'path';
 
-type PostcodeData = {
-  postcode: string;
-  state: string;
-  locality: string;
-};
-
 let cachedPostcodes: PostcodeData[] | null = null;
-
-async function loadPostcodes(): Promise<PostcodeData[]> {
-  if (cachedPostcodes) return cachedPostcodes;
-
-  const filePath = path.resolve(process.cwd(), 'public', 'postcodes.json');
-  const fileData = await fs.readFile(filePath, 'utf-8');
-  cachedPostcodes = JSON.parse(fileData);
-  
-  return cachedPostcodes || [];
-}
 
 export default defineEventHandler(async (event) => {
   const query = getQuery(event);
@@ -54,3 +38,20 @@ export default defineEventHandler(async (event) => {
     return { error: 'Failed to load postcodes data' };
   }
 });
+
+async function loadPostcodes(): Promise<PostcodeData[]> {
+  if (cachedPostcodes) return cachedPostcodes;
+
+  const filePath = path.resolve(process.cwd(), 'public', 'postcodes.json');
+  const fileData = await fs.readFile(filePath, 'utf-8');
+  cachedPostcodes = JSON.parse(fileData);
+  
+  return cachedPostcodes || [];
+}
+
+
+type PostcodeData = {
+  postcode: string;
+  state: string;
+  locality: string;
+};
